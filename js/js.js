@@ -190,7 +190,31 @@ document.addEventListener("DOMContentLoaded", function () {
 				top: y,
 				behavior: "smooth"
 			});
+
+			const navLinks = document.querySelector('.nav-links');
+			const navToggle = document.querySelector('.nav-toggle');
+			if (navLinks && navLinks.classList.contains('active')) {
+				navLinks.classList.remove('active');
+				navToggle.classList.remove('active');
+			}
 		});
 	});
+
+	const navToggle = document.querySelector('.nav-toggle');
+	const navLinks = document.querySelector('.nav-links');
+
+	if (navToggle && navLinks) {
+		navToggle.addEventListener('click', () => {
+			navToggle.classList.toggle('active');
+			navLinks.classList.toggle('active');
+		});
+
+		document.addEventListener('click', (e) => {
+			if (!navToggle.contains(e.target) && !navLinks.contains(e.target)) {
+				navLinks.classList.remove('active');
+				navToggle.classList.remove('active');
+			}
+		});
+	}
 
 });
