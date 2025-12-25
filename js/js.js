@@ -173,4 +173,24 @@ document.addEventListener("DOMContentLoaded", function () {
 		})
 	}
 	footer();
+
+	document.querySelectorAll("[data-scroll]").forEach(link => {
+		link.addEventListener("click", e => {
+			e.preventDefault();
+
+			const id = link.getAttribute("data-scroll");
+			const target = document.getElementById(id);
+			if (!target) return;
+
+			const y =
+				target.getBoundingClientRect().top +
+				document.documentElement.scrollTop;
+
+			window.scrollTo({
+				top: y,
+				behavior: "smooth"
+			});
+		});
+	});
+
 });
