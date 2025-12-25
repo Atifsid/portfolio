@@ -116,8 +116,8 @@ section {
 .header__img {
 	position: absolute;
 	width: 45%;
-	height: 100%;
-	top: 0;
+	height: calc(100% - 100px);
+	top: 100px;
 	right: 100px;
 	clip-path: polygon(0% 0%, 0% 0%, 0% 100%, 0% 100%);
 	overflow: hidden;
