@@ -3,7 +3,7 @@ export const profile = {
   title: "Senior Software Developer",
   subtitle: "Full-Stack — Mobile, Web & Backend",
   location: "Indirapuram, Ghaziabad, India",
-  email: "atifsiddiqui35@gmail.com",
+  email: "heyatifsid@gmail.com",
   phone: "+91-9773916646",
   github: "https://github.com/Atifsid",
   linkedin: "https://www.linkedin.com/in/atifsid07/",

@@ -22,7 +22,7 @@ export const metadata: Metadata = {
   title: "Atif Siddiqui — Senior Software Developer",
   description:
     "Full-stack engineer with 3.5+ years shipping production systems in React Native, Next.js, Node.js, Spring Boot, and .NET.",
-  metadataBase: new URL("https://atifsiddiqui.dev"),
+  metadataBase: new URL("https://www.atifsid.in"),
   openGraph: {
     title: "Atif Siddiqui — Senior Software Developer",
     description: "Systems built with intent. Shipped to last.",
