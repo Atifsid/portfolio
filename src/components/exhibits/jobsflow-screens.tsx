@@ -11,28 +11,24 @@ const SCREENS = [
     id: "today",
     label: "Today",
     src: "/images/jobsflow/app-today.webp",
-    focus: "4% 58%",
     caption: "New roles ranked by an explainable fit score, with sponsorship flagged.",
   },
   {
     id: "tailor",
     label: "Tailor",
     src: "/images/jobsflow/app-ats-check.webp",
-    focus: "82% 60%",
     caption: "A resume rewritten for the posting, checked against its keywords in code.",
   },
   {
     id: "people",
     label: "Referrals",
     src: "/images/jobsflow/app-contacts.webp",
-    focus: "8% 72%",
     caption: "People who could refer you, found from public search results.",
   },
   {
     id: "tracker",
     label: "Tracker",
     src: "/images/jobsflow/app-tracker.webp",
-    focus: "4% 22%",
     caption: "Every application and the follow-ups that are due.",
   },
 ];
@@ -95,11 +91,6 @@ export function JobsFlowScreens() {
 
       <div id="jf-panel" role="tabpanel" aria-labelledby={`jf-tab-${SCREENS[active].id}`}>
         <div className="relative aspect-[16/9] overflow-hidden bg-[#f5f3ee]">
-          {/* On phones the full screen is too small to read, so zoom into one region of it. */}
-          <div
-            className="absolute inset-0 transition-[transform-origin] duration-700 ease-out max-sm:scale-[2.6]"
-            style={{ transformOrigin: SCREENS[active].focus }}
-          >
           {SCREENS.map((s, i) => (
             <Image
               key={s.id}
@@ -107,13 +98,13 @@ export function JobsFlowScreens() {
               alt={`JobsFlow ${s.label} screen`}
               fill
               sizes="(min-width: 768px) 720px, 100vw"
-              className={`object-contain object-top transition-[opacity,transform] duration-700 ease-out ${
+              quality={90}
+              className={`object-contain object-center transition-[opacity,transform] duration-700 ease-out ${
                 i === active ? "scale-100 opacity-100" : "scale-[1.015] opacity-0"
               }`}
               priority={i === 0}
             />
           ))}
-          </div>
         </div>
         <p className="border-t border-line px-4 py-3 text-[13px] text-muted sm:px-5">{SCREENS[active].caption}</p>
       </div>
