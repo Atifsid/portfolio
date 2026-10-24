@@ -7,6 +7,7 @@ export const profile = {
   phone: "+91-9773916646",
   github: "https://github.com/Atifsid",
   linkedin: "https://www.linkedin.com/in/atifsid07/",
+  twitter: "https://x.com/AtifSid_101",
   summary:
     "Full-stack engineer with 3.5+ years shipping production systems in React Native, Next.js, Angular, Node.js, Spring Boot, and .NET. Built features across e-commerce, logistics, fleet management, ERP, and partner integration platforms, and mentored 3+ junior engineers.",
   documentNo: "SSE-2023-0135",
@@ -110,29 +111,28 @@ export type VisaEntry = {
 
 export const projects: VisaEntry[] = [
   {
+    id: "jobsflow",
+    title: "JobsFlow",
+    stack: ["Node.js", "TypeScript", "React", "Express", "Playwright"],
+    description:
+      "A job-search app that ranks roles by fit with your resume, tailors the resume to each posting with a deterministic ATS keyword check, finds people who can refer you, and tracks follow-ups, cutting a 2–3 hour manual application workflow to under 2 minutes.",
+    highlights: [
+      "Explainable fit score: skill overlap, experience fit, market match, recency",
+      "Visa sponsorship flagged on every listing",
+    ],
+    href: "https://jobsflow.in",
+    type: "live",
+  },
+  {
     id: "jobspedia",
     title: "JobsPedia",
     stack: ["Node.js", "TypeScript", "SQLite", "REST API"],
     description:
-      "A job-aggregation service unifying 16+ ATS platforms (Greenhouse, Lever, Ashby, and others) and 6 job-board APIs into one normalized, deduplicated dataset exposed via a REST search API.",
+      "The data engine behind JobsFlow: 18 ATS platforms, 6 job-board APIs, and aggregator boards normalized into one deduplicated SQLite dataset, served through POST /jobs/search.",
     highlights: [
-      "Cross-source fuzzy deduplication",
-      "H-1B visa-sponsorship cross-referencing against USCIS data",
+      "Cross-source fuzzy deduplication on company, title, and city",
+      "H-1B sponsorship cross-referenced against USCIS employer data",
     ],
-    href: "https://github.com/Atifsid",
-    type: "repo",
-  },
-  {
-    id: "jobflowai",
-    title: "JobFlowAI",
-    stack: ["Node.js", "TypeScript", "React", "Express", "Playwright"],
-    description:
-      "An AI career-automation platform that tailors a resume per job description, verifies ATS keyword coverage and work-history integrity deterministically in code, and drafts personalized LinkedIn referral outreach — cutting a 2–3 hour manual application workflow to under 2 minutes.",
-    highlights: [
-      "Provider-agnostic AI pipeline behind a strict layered backend",
-      "290+ automated tests",
-    ],
-    href: "https://github.com/Atifsid",
     type: "repo",
   },
   {
@@ -170,7 +170,7 @@ export const projects: VisaEntry[] = [
     title: "Email Verification Service",
     stack: ["React", "Vite", "Node.js", "Express"],
     description:
-      "Full-stack SMTP-based email verification tool validating addresses in real time via direct SMTP handshakes, similar to Hunter.io.",
+      "Full-stack SMTP-based email verification tool validating addresses in real time via direct SMTP handshakes.",
     href: "https://github.com/Atifsid/email-verification",
     type: "repo",
     preview: "/images/previews/email-verify.png",
@@ -181,7 +181,7 @@ export const projects: VisaEntry[] = [
     stack: ["React Native", "MMKV", "TanStack Query"],
     description:
       "Modular HRMS app supporting Admin and Employee roles with persistent auth, an employee directory paginated for 1,000+ records, dark/light themes, and resilience under simulated slow networks.",
-    href: "https://github.com/Atifsid",
+    href: "https://github.com/Atifsid/hrms",
     type: "repo",
   },
   {
@@ -200,7 +200,7 @@ export const projects: VisaEntry[] = [
     stack: ["React Native", "RapidAPI"],
     description:
       "Mobile flight booking app integrating real-time flight data, processing 100+ itineraries per query across sign-up, search, filtering, and itinerary screens.",
-    href: "https://github.com/Atifsid",
+    href: "https://github.com/Atifsid/Jetaway",
     type: "repo",
   },
   {
@@ -209,7 +209,7 @@ export const projects: VisaEntry[] = [
     stack: ["React Native"],
     description:
       "Full-featured anime streaming app supporting 5,000+ episodes with real-time search, HD playback, animated transitions, and dual themes.",
-    href: "https://github.com/Atifsid",
+    href: "https://github.com/Atifsid/StreamAnime",
     type: "repo",
   },
   {

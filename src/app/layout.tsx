@@ -1,20 +1,17 @@
 import type { Metadata } from "next";
-import { Fraunces, Inter } from "next/font/google";
+import { Geist, Geist_Mono } from "next/font/google";
 import { SmoothScroll } from "@/components/smooth-scroll";
 import "./globals.css";
 
-const fraunces = Fraunces({
+const geist = Geist({
   subsets: ["latin"],
-  weight: ["400", "500", "600"],
-  style: ["normal", "italic"],
-  variable: "--font-fraunces",
+  variable: "--font-geist",
   display: "swap",
 });
 
-const inter = Inter({
+const geistMono = Geist_Mono({
   subsets: ["latin"],
-  weight: ["400", "500", "600"],
-  variable: "--font-inter",
+  variable: "--font-geist-mono",
   display: "swap",
 });
 
@@ -25,16 +22,22 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://www.atifsid.in"),
   openGraph: {
     title: "Atif Siddiqui — Senior Software Developer",
-    description: "Systems built with intent. Shipped to last.",
+    description: "Full-stack engineer. Mobile, web and backend.",
     type: "website",
   },
 };
+
+// Applies the saved theme before paint so there is no flash; dark is the default.
+const themeScript = `try{var t=localStorage.getItem("theme");if(t==="light")document.documentElement.dataset.theme="light"}catch(e){}`;
 
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${fraunces.variable} ${inter.variable}`}>
+    <html lang="en" className={`${geist.variable} ${geistMono.variable}`} suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+      </head>
       <body>
         <SmoothScroll />
         {children}

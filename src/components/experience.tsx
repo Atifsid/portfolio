@@ -1,89 +1,82 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useRef, useState } from "react";
 import { experience } from "@/data/resume";
-import { Reveal } from "./reveal";
-import { ensureGsap, gsap, ScrollTrigger } from "@/lib/gsap";
+import { gsap } from "@/lib/gsap";
 
-export function Experience() {
-  const listRef = useRef<HTMLDivElement>(null);
-  const lineRef = useRef<HTMLDivElement>(null);
+function Role({ entry, initiallyOpen }: { entry: (typeof experience)[number]; initiallyOpen: boolean }) {
+  const [open, setOpen] = useState(initiallyOpen);
+  const bodyRef = useRef<HTMLDivElement>(null);
+  const id = `role-${entry.id}`;
 
-  useEffect(() => {
-    const list = listRef.current;
-    const line = lineRef.current;
-    if (!list || !line) return;
+  const toggle = () => {
+    const body = bodyRef.current;
+    const next = !open;
+    setOpen(next);
+    if (!body) return;
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (reduced) {
-      gsap.set(line, { scaleY: 1 });
-      return;
+    gsap.killTweensOf(body);
+    if (next) {
+      gsap.fromTo(body, { height: 0, opacity: 0 }, { height: "auto", opacity: 1, duration: reduced ? 0 : 0.45, ease: "expo.out" });
+    } else {
+      gsap.to(body, { height: 0, opacity: 0, duration: reduced ? 0 : 0.3, ease: "power2.out" });
     }
-
-    ensureGsap();
-    const ctx = gsap.context(() => {
-      gsap.fromTo(
-        line,
-        { scaleY: 0 },
-        {
-          scaleY: 1,
-          ease: "none",
-          scrollTrigger: { trigger: list, start: "top 70%", end: "bottom 60%", scrub: 0.5 },
-        }
-      );
-    });
-    return () => ctx.revert();
-  }, []);
+  };
 
   return (
-    <section id="experience" className="relative bg-void-raised px-6 py-28">
-      <div className="mx-auto max-w-4xl">
-        <Reveal className="text-center">
-          <p className="font-label text-sm uppercase tracking-[0.14em] text-mist-dim">Experience</p>
-          <h2 className="mt-3 font-display text-4xl text-white sm:text-5xl">
-            <span className="font-semibold">Four roles,</span>{" "}
-            <span className="italic font-normal text-mist">one upward line.</span>
-          </h2>
-        </Reveal>
-
-        <div ref={listRef} className="relative mt-16 pl-7 sm:pl-9">
-          <div className="absolute left-0 top-1 bottom-1 w-px bg-void-line" />
-          <div
-            ref={lineRef}
-            className="absolute left-0 top-1 bottom-1 w-px origin-top bg-glow-blue"
-            style={{ transform: "scaleY(0)" }}
-          />
-
-          <div className="divide-y divide-void-line">
-            {experience.map((entry, i) => (
-              <Reveal key={entry.id} delay={i * 0.04} className="relative py-10 first:pt-0">
-                <span className="absolute -left-7 top-2 h-2.5 w-2.5 -translate-x-1/2 rounded-full border-2 border-glow-blue bg-void-raised sm:-left-9" />
-                <div className="flex flex-col gap-4 sm:flex-row sm:items-baseline sm:justify-between">
-                  <div>
-                    <div className="flex flex-wrap items-center gap-3">
-                      <h3 className="font-display text-2xl text-white">{entry.role}</h3>
-                      {entry.current && (
-                        <span className="rounded-full bg-glow-blue/15 px-2.5 py-0.5 font-label text-[11px] text-glow-blue">
-                          Current
-                        </span>
-                      )}
-                    </div>
-                    <p className="mt-1 font-label text-sm text-mist-dim">{entry.company}</p>
-                  </div>
-                  <p className="font-label text-sm text-mist-dim">{entry.dateRange}</p>
-                </div>
-                <ul className="mt-5 space-y-2.5">
-                  {entry.bullets.map((bullet) => (
-                    <li key={bullet.slice(0, 24)} className="flex gap-3 text-[0.95rem] leading-relaxed text-mist">
-                      <span className="mt-2.5 h-1 w-1 shrink-0 rounded-full bg-glow-blue" />
-                      <span>{bullet}</span>
-                    </li>
-                  ))}
-                </ul>
-              </Reveal>
-            ))}
-          </div>
-        </div>
+    <li className="border-b border-line">
+      <h3>
+        <button
+          type="button"
+          aria-expanded={open}
+          aria-controls={id}
+          onClick={toggle}
+          className="group grid w-full grid-cols-[1fr_auto] items-baseline gap-x-6 gap-y-0.5 py-4 text-left"
+        >
+          <span>
+            <span className="font-medium">{entry.role}</span>
+            <span className="text-muted"> · {entry.company}</span>
+          </span>
+          <span className="flex items-center gap-3 font-mono text-xs text-faint">
+            <span className={entry.current ? "inline-flex items-center gap-2 text-ink" : undefined}>
+              {entry.current && <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-live" />}
+              {entry.dateRange.replace("Present", "now")}
+            </span>
+            <svg
+              aria-hidden="true"
+              width="12"
+              height="12"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              className={`transition-transform duration-300 ease-out group-hover:text-ink ${open ? "rotate-45" : ""}`}
+            >
+              <path d="M12 5v14M5 12h14" />
+            </svg>
+          </span>
+        </button>
+      </h3>
+      <div id={id} ref={bodyRef} className="overflow-hidden" style={initiallyOpen ? undefined : { height: 0, opacity: 0 }}>
+        <ul className="max-w-[64ch] space-y-2 pb-6 text-muted">
+          {entry.bullets.map((b) => (
+            <li key={b} className="relative pl-4 before:absolute before:left-0 before:top-[0.7em] before:h-px before:w-2 before:bg-faint">
+              {b}
+            </li>
+          ))}
+        </ul>
       </div>
-    </section>
+    </li>
+  );
+}
+
+export function Experience() {
+  return (
+    <ul className="border-t border-line">
+      {experience.map((entry, i) => (
+        <Role key={entry.id} entry={entry} initiallyOpen={i === 0} />
+      ))}
+    </ul>
   );
 }

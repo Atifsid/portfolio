@@ -3,53 +3,102 @@
 @tailwind utilities;
 
 :root {
+  --bg: #0f0f10;
+  --surface: #161618;
+  --surface-2: #1d1d20;
+  --line: #27272b;
+  --ink: #ededee;
+  --muted: #a1a1a7;
+  --faint: #818189;
+  --live: #4cc38a;
   color-scheme: dark;
 }
 
+:root[data-theme="light"] {
+  --bg: #fbfbfa;
+  --surface: #f3f3f1;
+  --surface-2: #e9e9e6;
+  --line: #e0e0dc;
+  --ink: #161618;
+  --muted: #55555c;
+  --faint: #6c6c73;
+  --live: #1a8a55;
+  color-scheme: light;
+}
+
 html {
-  scroll-behavior: smooth;
+  background-color: var(--bg);
 }
 
 body {
-  background-color: #030304;
-  color: #f2f2f5;
-  font-family: var(--font-inter), system-ui, sans-serif;
+  background-color: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-geist), system-ui, sans-serif;
+  font-size: 15px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 ::selection {
-  background-color: #3d5afe;
-  color: #ffffff;
+  background-color: var(--ink);
+  color: var(--bg);
 }
 
 ::-webkit-scrollbar {
-  width: 11px;
+  width: 10px;
 }
 ::-webkit-scrollbar-track {
-  background: #0b0b0f;
+  background: var(--bg);
 }
 ::-webkit-scrollbar-thumb {
-  background-color: #3d3d46;
+  background-color: var(--line);
   border-radius: 999px;
-  border: 2px solid #0b0b0f;
+  border: 2px solid var(--bg);
 }
 ::-webkit-scrollbar-thumb:hover {
-  background-color: #3d5afe;
+  background-color: var(--faint);
 }
 
 :focus-visible {
-  outline: 2px solid #3d5afe;
+  outline: 2px solid var(--ink);
   outline-offset: 3px;
-  border-radius: 2px;
+  border-radius: 4px;
 }
 
-.font-data {
+a {
+  text-decoration-color: var(--faint);
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+}
+
+.font-mono {
   font-variant-numeric: tabular-nums;
 }
 
-/* SplitText line-mask reveal: clip each line so yPercent slide-ins hide cleanly */
-.hero-line-mask {
-  overflow: hidden;
-  display: block;
+/* One load stagger for the first viewport; content is visible by default without JS animation. */
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+.rise {
+  animation: rise 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: calc(var(--i, 0) * 80ms);
+}
+
+@keyframes pulse-ring {
+  0% {
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--live) 55%, transparent);
+  }
+  100% {
+    box-shadow: 0 0 0 6px transparent;
+  }
+}
+.pulse {
+  animation: pulse-ring 2.4s ease-out infinite;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -59,8 +108,5 @@ body {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
-  }
-  html {
-    scroll-behavior: auto;
   }
 }
