@@ -22,7 +22,7 @@ function SectionTitle({ children, aside }: { children: React.ReactNode; aside?: 
 
 export default function Home() {
   return (
-    <div id="top" className="mx-auto max-w-[720px] px-5">
+    <div id="top" className="relative z-10 mx-auto max-w-[720px] px-5">
       <SiteHeader />
 
       <main>

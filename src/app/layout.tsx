@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { SmoothScroll } from "@/components/smooth-scroll";
+import { Starfield } from "@/components/starfield";
 import "./globals.css";
 
 const geist = Geist({
@@ -40,6 +41,7 @@ export default function RootLayout({
       </head>
       <body>
         <SmoothScroll />
+        <Starfield />
         {children}
       </body>
     </html>
